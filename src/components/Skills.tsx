@@ -1,8 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { 
   Code2, 
   Database, 
@@ -17,37 +15,31 @@ const skillCategories = [
     title: "Languages",
     icon: Code2,
     skills: ["Python", "TypeScript", "JavaScript", "Go", "Java"],
-    color: "from-blue-500 to-blue-600",
   },
   {
     title: "GenAI & ML",
     icon: Sparkles,
     skills: ["LangChain", "OpenAI API", "Hugging Face", "RAG", "Vector DBs", "Prompt Engineering"],
-    color: "from-blue-500 to-blue-600",
   },
   {
     title: "Backend & APIs",
     icon: Server,
     skills: ["Node.js", "FastAPI", "NestJS", "Express", "REST", "GraphQL"],
-    color: "from-blue-500 to-blue-600",
   },
   {
     title: "Databases",
     icon: Database,
     skills: ["PostgreSQL", "MongoDB", "Redis", "Pinecone", "Qdrant", "ChromaDB"],
-    color: "from-blue-500 to-blue-600",
   },
   {
     title: "DevOps & Tools",
     icon: GitBranch,
     skills: ["Docker", "Kubernetes", "AWS", "Git", "CI/CD", "Linux"],
-    color: "from-blue-500 to-blue-600",
   },
   {
     title: "Frameworks",
     icon: Cpu,
     skills: ["LangGraph", "LlamaIndex", "Next.js", "React", "TailwindCSS"],
-    color: "from-blue-500 to-blue-600",
   },
 ];
 
@@ -80,7 +72,7 @@ export default function Skills() {
     <section
       id="skills"
       ref={sectionRef}
-      className="py-20 bg-muted/30"
+      className="py-24 section-dark"
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div
@@ -90,48 +82,47 @@ export default function Skills() {
         >
           {/* Section Title */}
           <div className="text-center mb-12">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4">
+            <div className="inline-flex items-center gap-2 mb-4">
+              <Code2 className="w-5 h-5 text-cyan-400" />
+              <span className="text-sm text-white/50 uppercase tracking-wider">Expertise</span>
+            </div>
+            <h2 className="text-4xl md:text-5xl font-bold">
               Technical <span className="gradient-text">Skills</span>
             </h2>
-            <div className="w-20 h-1 bg-gradient-to-r from-purple-600 to-blue-500 mx-auto rounded-full" />
           </div>
 
           {/* Skills Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 max-w-6xl mx-auto">
             {skillCategories.map((category, index) => {
               const Icon = category.icon;
               return (
-                <Card
+                <div
                   key={category.title}
-                  className={`group hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border-2 ${
+                  className={`card-dark p-6 ${
                     isVisible ? "animate-fadeInUp" : "opacity-0"
                   }`}
-                  style={{ animationDelay: `${index * 100}ms` }}
+                  style={{ animationDelay: `${index * 80}ms` }}
                 >
-                  <CardHeader>
-                    <div className="flex items-center gap-3">
-                      <div
-                        className={`p-3 rounded-lg bg-gradient-to-br ${category.color} text-white`}
+                  {/* Header */}
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="p-2.5 rounded-lg bg-cyan-500/10 border border-cyan-500/20">
+                      <Icon className="w-5 h-5 text-cyan-400" />
+                    </div>
+                    <h3 className="text-lg font-semibold text-white">{category.title}</h3>
+                  </div>
+                  
+                  {/* Skills */}
+                  <div className="flex flex-wrap gap-2">
+                    {category.skills.map((skill) => (
+                      <span
+                        key={skill}
+                        className="badge-dark"
                       >
-                        <Icon className="h-6 w-6" />
-                      </div>
-                      <CardTitle className="text-xl">{category.title}</CardTitle>
-                    </div>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="flex flex-wrap gap-2">
-                      {category.skills.map((skill) => (
-                        <Badge
-                          key={skill}
-                          variant="secondary"
-                          className="text-sm hover:bg-primary hover:text-primary-foreground transition-colors cursor-default"
-                        >
-                          {skill}
-                        </Badge>
-                      ))}
-                    </div>
-                  </CardContent>
-                </Card>
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
+                </div>
               );
             })}
           </div>

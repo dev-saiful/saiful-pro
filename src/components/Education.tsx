@@ -1,15 +1,14 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { Card, CardContent } from "@/components/ui/card";
-import { GraduationCap, Calendar } from "lucide-react";
+import { GraduationCap, Calendar, Award } from "lucide-react";
 
 const education = [
   {
-    degree: "Bachelor of Science in Computer Science",
-    institution: "University of Technology",
+    degree: "Bachelor of Science in Computer Science & Engineering",
+    institution: "Sonargaon University, Bangladesh",
     year: "2018 - 2022",
-    description: "Focused on Software Engineering, Artificial Intelligence, and Database Systems. Graduated with honors.",
+    description: "Graduated with CGPA 3.87/4.00. Focused on Software Engineering, Artificial Intelligence, and Database Systems.",
   },
   {
     degree: "Advanced AI & Machine Learning Certification",
@@ -48,7 +47,7 @@ export default function Education() {
     <section
       id="education"
       ref={sectionRef}
-      className="py-20 bg-muted/30"
+      className="py-24 section-dark"
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div
@@ -58,50 +57,51 @@ export default function Education() {
         >
           {/* Section Title */}
           <div className="text-center mb-12">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4">
+            <div className="inline-flex items-center gap-2 mb-4">
+              <Award className="w-5 h-5 text-cyan-400" />
+              <span className="text-sm text-white/50 uppercase tracking-wider">Background</span>
+            </div>
+            <h2 className="text-4xl md:text-5xl font-bold">
               <span className="gradient-text">Education</span>
             </h2>
-            <div className="w-20 h-1 bg-gradient-to-r from-purple-600 to-blue-500 mx-auto rounded-full" />
           </div>
 
-          {/* Education Timeline */}
-          <div className="max-w-4xl mx-auto space-y-8">
+          {/* Education Cards */}
+          <div className="max-w-3xl mx-auto space-y-6">
             {education.map((edu, index) => (
-              <Card
+              <div
                 key={edu.degree}
-                className={`group hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 border-2 ${
+                className={`card-dark p-6 md:p-8 group ${
                   isVisible ? "animate-fadeInUp" : "opacity-0"
                 }`}
-                style={{ animationDelay: `${index * 200}ms` }}
+                style={{ animationDelay: `${index * 150}ms` }}
               >
-                <CardContent className="p-6 md:p-8">
-                  <div className="flex flex-col md:flex-row gap-6">
-                    {/* Icon */}
-                    <div className="flex-shrink-0">
-                      <div className="p-4 rounded-full bg-gradient-to-br from-blue-500 to-blue-600 text-white w-fit">
-                        <GraduationCap className="h-8 w-8" />
-                      </div>
-                    </div>
-
-                    {/* Content */}
-                    <div className="flex-1 space-y-3">
-                      <h3 className="text-2xl font-bold group-hover:gradient-text transition-all">
-                        {edu.degree}
-                      </h3>
-                      <p className="text-lg font-medium text-muted-foreground">
-                        {edu.institution}
-                      </p>
-                      <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                        <Calendar className="h-4 w-4" />
-                        <span>{edu.year}</span>
-                      </div>
-                      <p className="text-muted-foreground leading-relaxed">
-                        {edu.description}
-                      </p>
+                <div className="flex flex-col md:flex-row gap-5">
+                  {/* Icon */}
+                  <div className="flex-shrink-0">
+                    <div className="p-4 rounded-xl bg-gradient-to-br from-cyan-500/20 to-blue-500/20 border border-cyan-500/20 w-fit">
+                      <GraduationCap className="w-7 h-7 text-cyan-400" />
                     </div>
                   </div>
-                </CardContent>
-              </Card>
+
+                  {/* Content */}
+                  <div className="flex-1 space-y-3">
+                    <h3 className="text-xl font-bold text-white group-hover:text-cyan-400 transition-colors">
+                      {edu.degree}
+                    </h3>
+                    <p className="text-base font-medium text-white/70">
+                      {edu.institution}
+                    </p>
+                    <div className="flex items-center gap-2 text-sm text-white/50">
+                      <Calendar className="w-4 h-4" />
+                      <span>{edu.year}</span>
+                    </div>
+                    <p className="text-white/60 leading-relaxed">
+                      {edu.description}
+                    </p>
+                  </div>
+                </div>
+              </div>
             ))}
           </div>
         </div>

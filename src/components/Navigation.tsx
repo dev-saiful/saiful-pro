@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Button } from "@/components/ui/button";
 import { Menu, X, Download } from "lucide-react";
 
 const navItems = [
@@ -22,7 +21,6 @@ export default function Navigation() {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
 
-      // Update active section based on scroll position
       const sections = navItems.map((item) => item.href.substring(1));
       const current = sections.find((section) => {
         const element = document.getElementById(section);
@@ -50,9 +48,7 @@ export default function Navigation() {
   return (
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
-          ? "bg-background/80 backdrop-blur-lg shadow-lg border-b border-border"
-          : "bg-transparent"
+        isScrolled ? "nav-glass" : "bg-transparent"
       }`}
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -64,13 +60,13 @@ export default function Navigation() {
               e.preventDefault();
               scrollToSection("#home");
             }}
-            className="text-xl font-bold gradient-text cursor-pointer"
+            className="text-xl font-bold gradient-text-static cursor-pointer"
           >
             Saiful Islam
           </a>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-1">
+          <div className="hidden md:flex items-center gap-1">
             {navItems.map((item) => (
               <a
                 key={item.name}
@@ -79,10 +75,8 @@ export default function Navigation() {
                   e.preventDefault();
                   scrollToSection(item.href);
                 }}
-                className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
-                  activeSection === item.href.substring(1)
-                    ? "bg-primary text-primary-foreground"
-                    : "text-foreground/70 hover:text-foreground hover:bg-accent"
+                className={`nav-link ${
+                  activeSection === item.href.substring(1) ? "nav-link-active" : ""
                 }`}
               >
                 {item.name}
@@ -90,36 +84,29 @@ export default function Navigation() {
             ))}
             
             {/* Resume Button */}
-            <Button
-              size="sm"
-              className="ml-2 bg-blue-600 hover:bg-blue-700 text-white gap-2"
-              asChild
+            <a 
+              href="/resume.pdf" 
+              download="Saiful_Islam_Resume.pdf"
+              className="ml-3 btn-primary text-sm py-2 px-4 inline-flex items-center gap-2"
             >
-              <a href="/resume.pdf" download="Saiful_Islam_Resume.pdf">
-                <Download className="h-4 w-4" />
-                Resume
-              </a>
-            </Button>
+              <Download className="w-4 h-4" />
+              Resume
+            </a>
           </div>
 
           {/* Mobile Menu Button */}
-          <Button
-            variant="ghost"
-            size="icon"
-            className="md:hidden"
+          <button
+            className="md:hidden p-2 rounded-lg glass-card text-white/70 hover:text-white transition-colors"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            aria-label="Toggle menu"
           >
-            {isMobileMenuOpen ? (
-              <X className="h-6 w-6" />
-            ) : (
-              <Menu className="h-6 w-6" />
-            )}
-          </Button>
+            {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          </button>
         </div>
 
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
-          <div className="md:hidden py-4 space-y-2 animate-fadeIn">
+          <div className="md:hidden py-4 space-y-1 animate-fadeIn">
             {navItems.map((item) => (
               <a
                 key={item.name}
@@ -128,10 +115,10 @@ export default function Navigation() {
                   e.preventDefault();
                   scrollToSection(item.href);
                 }}
-                className={`block px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+                className={`block px-4 py-2.5 rounded-lg text-sm font-medium transition-all ${
                   activeSection === item.href.substring(1)
-                    ? "bg-primary text-primary-foreground"
-                    : "text-foreground/70 hover:text-foreground hover:bg-accent"
+                    ? "nav-link-active"
+                    : "text-white/70 hover:text-white hover:bg-white/5"
                 }`}
               >
                 {item.name}
@@ -139,17 +126,15 @@ export default function Navigation() {
             ))}
             
             {/* Resume Button */}
-            <div className="px-4 pt-2">
-              <Button
-                size="sm"
-                className="w-full bg-blue-600 hover:bg-blue-700 text-white gap-2"
-                asChild
+            <div className="pt-3 px-4">
+              <a 
+                href="/resume.pdf" 
+                download="Saiful_Islam_Resume.pdf"
+                className="btn-primary text-sm py-2.5 px-4 w-full inline-flex items-center justify-center gap-2"
               >
-                <a href="/resume.pdf" download="Saiful_Islam_Resume.pdf">
-                  <Download className="h-4 w-4" />
-                  Download Resume
-                </a>
-              </Button>
+                <Download className="w-4 h-4" />
+                Download Resume
+              </a>
             </div>
           </div>
         )}

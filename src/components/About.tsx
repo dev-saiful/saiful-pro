@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { Card, CardContent } from "@/components/ui/card";
+import { Sparkles, Trophy, Briefcase, Code2, Users } from "lucide-react";
 
 export default function About() {
   const [isVisible, setIsVisible] = useState(false);
@@ -28,11 +28,18 @@ export default function About() {
     };
   }, []);
 
+  const highlights = [
+    { icon: Briefcase, label: "3+ Years", value: "Experience" },
+    { icon: Trophy, label: "2x ICPC", value: "Participant" },
+    { icon: Users, label: "Team Lead", value: "InteliTalk" },
+    { icon: Code2, label: "Freelancer", value: "Worldwide" },
+  ];
+
   return (
     <section
       id="about"
       ref={sectionRef}
-      className="py-20 bg-background"
+      className="py-24 section-dark-alt"
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div
@@ -42,42 +49,75 @@ export default function About() {
         >
           {/* Section Title */}
           <div className="text-center mb-12">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4">
+            <div className="inline-flex items-center gap-2 mb-4">
+              <Sparkles className="w-5 h-5 text-cyan-400" />
+              <span className="text-sm text-white/50 uppercase tracking-wider">My Story</span>
+            </div>
+            <h2 className="text-4xl md:text-5xl font-bold">
               About <span className="gradient-text">Me</span>
             </h2>
-            <div className="w-20 h-1 bg-gradient-to-r from-purple-600 to-blue-500 mx-auto rounded-full" />
           </div>
 
-          {/* Content */}
-          <Card className="max-w-4xl mx-auto border-2 hover:shadow-2xl transition-shadow duration-300">
-            <CardContent className="p-8 md:p-12">
+          {/* Highlights Cards */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-3xl mx-auto mb-12">
+            {highlights.map((item, index) => {
+              const Icon = item.icon;
+              return (
+                <div 
+                  key={item.label}
+                  className={`card-dark p-4 text-center ${isVisible ? "animate-fadeInUp" : "opacity-0"}`}
+                  style={{ animationDelay: `${index * 100}ms` }}
+                >
+                  <Icon className="w-5 h-5 text-cyan-400 mx-auto mb-2" />
+                  <p className="text-base font-bold text-white">{item.label}</p>
+                  <p className="text-xs text-white/50">{item.value}</p>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Story Content */}
+          <div className="max-w-3xl mx-auto">
+            <div className="card-glow p-8 md:p-12">
               <div className="space-y-6 text-lg leading-relaxed">
-                <p className="text-muted-foreground">
-                  Hello! I&apos;m <span className="font-semibold text-foreground gradient-text-ai">Saiful Islam</span>, 
-                  a passionate <span className="font-semibold text-foreground">GenAI Software Developer</span> with 
-                  a strong focus on building robust and scalable backend systems.
+                <p className="text-white/80">
+                  Hi! I&apos;m <span className="text-cyan-400 font-medium">Saiful Islam</span>. My journey started 
+                  with a simple question — how can computers be smart like humans? That curiosity turned into 
+                  my career.
                 </p>
                 
-                <p className="text-muted-foreground">
-                  I specialize in leveraging cutting-edge <span className="font-semibold text-foreground">Generative AI</span> technologies 
-                  to create innovative solutions that solve real-world problems. My expertise lies in designing and implementing 
-                  high-performance backend architectures that power intelligent applications.
+                <p className="text-white/80">
+                  I competed in <span className="text-white font-medium">ICPC twice</span> with my team. One of those 
+                  times, we made it to the onsite round as <span className="text-cyan-400 font-medium">Team Zerone</span>. 
+                  Those experiences taught me how to solve hard problems under pressure.
+                </p>
+
+                <p className="text-white/80">
+                  In my final year of university, I led a <span className="text-white font-medium">5-member team</span> to 
+                  build <span className="text-cyan-400 font-medium">InteliTalk</span> — a chatbot for our university. 
+                  This was when LangChain was brand new and there were almost no tutorials. We learned everything 
+                  from Google, YouTube, and reading documentation. I designed and built the entire backend myself. 
+                  It was my first RAG system, and it worked!
                 </p>
                 
-                <p className="text-muted-foreground">
-                  With a deep understanding of <span className="font-semibold text-foreground">Large Language Models (LLMs)</span>, 
-                  <span className="font-semibold text-foreground"> RAG systems</span>, and 
-                  <span className="font-semibold text-foreground"> AI orchestration frameworks</span>, I build systems that are not 
-                  only powerful but also maintainable and production-ready.
+                <p className="text-white/80">
+                  For the past <span className="text-white font-medium">3+ years</span>, I&apos;ve been building 
+                  software that uses AI. I work mainly on backend systems — the code that makes apps run smoothly 
+                  behind the scenes. I&apos;ve also worked with clients from different countries as a freelancer.
                 </p>
                 
-                <p className="text-muted-foreground">
-                  When I&apos;m not coding, I enjoy exploring new AI research papers, contributing to open-source projects, 
-                  and staying up-to-date with the latest advancements in the GenAI ecosystem.
+                <p className="text-white/80">
+                  Now, I focus on <span className="text-cyan-400 font-medium">Generative AI</span> — teaching 
+                  computers to understand text, answer questions, and help people work faster. I love turning 
+                  complex ideas into simple, useful tools.
+                </p>
+                
+                <p className="text-white/60 italic border-l-2 border-cyan-500/50 pl-4">
+                  &ldquo;I build smart systems that make life easier.&rdquo;
                 </p>
               </div>
-            </CardContent>
-          </Card>
+            </div>
+          </div>
         </div>
       </div>
     </section>
