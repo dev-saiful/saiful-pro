@@ -9,48 +9,72 @@ const projects = [
     title: "InteliTalk - University Chatbot",
     description: "Led a 5-member team to build a RAG-based chatbot for university environment. Designed and developed the complete backend system when LangChain was first introduced with limited resources.",
     fullDescription: "InteliTalk was my final year project where I led a team of 5 members. We built a Retrieval-Augmented Generation (RAG) chatbot specifically designed for university students and staff. The system could answer questions about courses, schedules, faculty information, and campus facilities. I designed and developed the entire backend architecture, including the vector database integration, conversation memory, and API endpoints. This was built when LangChain was brand new with very limited documentation - we learned everything from scratch through documentation, YouTube tutorials, and experimentation.",
-    technologies: ["Python", "LangChain", "FastAPI", "RAG", "Vector DB"],
+    technologies: ["Node.js", "LangChain", "Groq", "RAG", "VectorDB"],
     github: null,
     demo: "https://intelitalk.vercel.app/",
     credentials: "Email: demo@test.com | Password: demo123",
     image: "/project-1.png",
   },
   {
-    title: "AI-Powered URL Shortener",
+    title: "Advanced URL Shortener",
     description: "Production-ready URL shortener with JWT authentication, role-based access control, and comprehensive testing.",
     fullDescription: "A full-featured URL shortener service built with industry-standard practices. Features include JWT-based authentication with refresh tokens, role-based access control (User/Admin roles), URL analytics tracking, rate limiting, and comprehensive unit and E2E testing. The architecture follows clean code principles with proper separation of concerns, making it easily maintainable and scalable.",
-    technologies: ["NestJS", "TypeScript", "PostgreSQL", "JWT", "Docker"],
+    technologies: ["NestJS", "TypeScript", "PostgreSQL", "Redis", "JWT", "Docker"],
     github: "https://github.com/dev-saiful",
     demo: "https://demo-link.net",
     credentials: "Email: demo@gmail.com | Password: 123456",
     image: "/project-2.png",
   },
   {
-    title: "RAG Document Q&A System",
-    description: "Intelligent document question-answering system using Retrieval-Augmented Generation with vector embeddings and semantic search.",
-    fullDescription: "An intelligent system that allows users to upload documents and ask questions in natural language. The system uses vector embeddings to understand document content and retrieves relevant context to generate accurate answers. Built with a focus on accuracy and response quality, featuring chunk optimization, hybrid search, and source citation for transparency.",
-    technologies: ["Python", "LangChain", "OpenAI", "Pinecone", "FastAPI"],
-    github: "https://github.com/dev-saiful",
-    demo: null,
+    title: "CodeCollab",
+    description: "Backend API for a coding Q&A platform — featuring JWT authentication, user management, and RESTful services for developers to ask and answer questions.",
+    fullDescription: "CodeCollab is a Q&A platform for developers, similar to Stack Overflow. I built the backend API with Node.js and Express, featuring secure JWT authentication with bcrypt password hashing, MongoDB data persistence using Mongoose, and email notifications via Nodemailer. The platform integrates with the Codeforces API to display user competitive programming ratings. Includes CI/CD workflows via GitHub Actions and deployment support for Azure.",
+    technologies: ["Node.js", "Express", "MongoDB", "JWT", "GitHub Actions"],
+    github: null,
+    demo: "https://codecollab-ochre.vercel.app/",
     credentials: null,
     image: "/project-3.png",
   },
   {
-    title: "LLM Orchestration Platform",
-    description: "Scalable platform for orchestrating multiple LLM workflows with custom agents and real-time streaming.",
-    fullDescription: "A platform designed to manage complex LLM workflows involving multiple agents, tools, and memory systems. Features include agent orchestration with LangGraph, persistent conversation memory with Redis, real-time streaming responses via WebSockets, and a modular architecture that allows easy addition of new agents and tools. Built for production with proper error handling, logging, and monitoring.",
-    technologies: ["Python", "LangGraph", "Redis", "WebSockets", "Docker"],
-    github: "https://github.com/dev-saiful",
+    title: "NasStore",
+    description: "Backend API for a full-stack ecommerce app — product catalog, shopping cart, checkout, and order management with RESTful services.",
+    fullDescription: "NasStore is a backend API for a full-stack ecommerce application built with JavaScript and Node.js. I developed the server-side logic including product listing and search APIs, shopping cart and checkout workflows, user authentication, and order management. The backend exposes RESTful APIs consumed by the frontend, featuring clean separation of concerns and payment integration readiness.",
+    technologies: ["Node.js", "Express", "JavaScript", "REST API", "Authentication"],
+    github: "https://github.com/dev-saiful/NasStore",
+    demo: "https://nasstore.vercel.app/",
+    credentials: "Admin: mh@gmail.com | Password: 123",
+    image: "/project-4.png",
+  },
+  {
+    title: "CampusHub — University Management API",
+    description: "A comprehensive university management API built with FastAPI featuring JWT authentication, CRUD APIs for students, teachers, courses, and more.",
+    fullDescription: "CampusHub is a robust university management API built with FastAPI and PostgreSQL. Features include JWT authentication for protected endpoints, CRUD APIs for students, teachers, courses, routines, and buses. The project includes file uploads and PDF generation for schedules and reports, Docker-ready deployment with docker-compose, comprehensive unit tests, and full OpenAPI (Swagger) documentation. Built with clean architecture using SQLModel/SQLAlchemy with proper separation of concerns.",
+    technologies: ["Python", "FastAPI", "PostgreSQL", "SQLAlchemy", "JWT", "Docker"],
+    github: "https://github.com/dev-saiful/campushub",
     demo: null,
     credentials: null,
-    image: "/project-4.png",
+    image: "/project-5.png",
+  },
+  {
+    title: "User Management System",
+    description: "A robust user management API built with Golang featuring JWT authentication, role-based access control, and admin dashboard.",
+    fullDescription: "User Management System is a web application API that allows administrators to manage users efficiently. Built with Golang and the Gin framework, it features secure user authentication with JWT and bcrypt password hashing, role-based access control for granular permissions, comprehensive user data management, and an admin dashboard. Uses PostgreSQL with GORM for data persistence.",
+    technologies: ["Golang", "Gin", "PostgreSQL", "GORM", "JWT", "Bcrypt"],
+    github: "https://github.com/dev-saiful/umanagement",
+    demo: null,
+    credentials: null,
+    image: "/project-6.png",
   },
 ];
 
 export default function Projects() {
   const [isVisible, setIsVisible] = useState(false);
   const [selectedProject, setSelectedProject] = useState<typeof projects[0] | null>(null);
+  const [showAllProjects, setShowAllProjects] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
+
+  const visibleProjects = showAllProjects ? projects : projects.slice(0, 4);
+  const hasMoreProjects = projects.length > 4;
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -113,12 +137,12 @@ export default function Projects() {
           </div>
 
           {/* Projects Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 max-w-6xl mx-auto">
-            {projects.map((project, index) => (
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 max-w-6xl mx-auto transition-all duration-500 ease-in-out">
+            {visibleProjects.map((project, index) => (
               <div
                 key={project.title}
-                className={`card-dark overflow-hidden group ${
-                  isVisible ? "animate-fadeInUp" : "opacity-0"
+                className={`card-dark overflow-hidden group transition-all duration-500 ease-in-out ${
+                  isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
                 }`}
                 style={{ animationDelay: `${index * 100}ms` }}
               >
@@ -196,6 +220,19 @@ export default function Projects() {
               </div>
             ))}
           </div>
+
+          {/* View More Button */}
+          {hasMoreProjects && (
+            <div className="flex justify-center mt-10">
+              <button
+                onClick={() => setShowAllProjects(!showAllProjects)}
+                className="btn-outline text-sm py-3 px-8 inline-flex items-center gap-2"
+              >
+                {showAllProjects ? "Show Less" : "View More Projects"}
+                <ChevronRight className={`w-4 h-4 transition-transform ${showAllProjects ? "rotate-90" : ""}`} />
+              </button>
+            </div>
+          )}
         </div>
       </div>
 

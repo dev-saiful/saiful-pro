@@ -159,12 +159,9 @@ export default function Contact() {
       {/* Footer */}
       <footer className="mt-24 pt-8 border-t border-white/5">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+          <div className="text-center">
             <p className="text-sm text-white/40">
               © {new Date().getFullYear()} Saiful Islam. All rights reserved.
-            </p>
-            <p className="text-sm text-white/40">
-              Built with Next.js, TailwindCSS & shadcn/ui
             </p>
           </div>
         </div>

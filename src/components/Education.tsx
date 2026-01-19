@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { GraduationCap, Calendar, Award } from "lucide-react";
+import { GraduationCap, Calendar, Award, ExternalLink } from "lucide-react";
 
 const education = [
   {
@@ -11,10 +11,24 @@ const education = [
     description: "Graduated with CGPA 3.87/4.00. Focused on Software Engineering, Artificial Intelligence, and Database Systems.",
   },
   {
-    degree: "Advanced AI & Machine Learning Certification",
-    institution: "Online Learning Platform",
-    year: "2023",
-    description: "Specialized in Large Language Models, Deep Learning, and Generative AI applications.",
+    degree: "Intermediate Back-end Development: Node & MongoDB",
+    institution: "IBM via Credly",
+    year: "2024",
+    description: "Demonstrated expertise in Node.js & MongoDB including RESTful APIs, JWT authentication, CRUD operations, error handling, and cloud deployment.",
+    link: "https://www.credly.com/badges/c4f9f065-8105-407f-8288-76fa2a44ec85/public_url",
+  },
+  {
+    degree: "API Design in Node.js, v5",
+    institution: "Frontend Masters",
+    year: "2024",
+    description: "Built scalable APIs with Express, PostgreSQL & Drizzle ORM, JWT authentication, integration testing with Vitest, and production deployment.",
+  },
+  {
+    degree: "Generative AI Essentials",
+    institution: "IBM via Credly",
+    year: "2024",
+    description: "Fundamentals of Generative AI including capabilities, applications, and tools. Proficient in generating text, images, and code using various Generative AI tools.",
+    link: "https://www.credly.com/badges/06ea2e30-2856-4d24-82b1-12a852c69310/public_url",
   },
 ];
 
@@ -87,7 +101,19 @@ export default function Education() {
                   {/* Content */}
                   <div className="flex-1 space-y-3">
                     <h3 className="text-xl font-bold text-white group-hover:text-cyan-400 transition-colors">
-                      {edu.degree}
+                      {(edu as any).link ? (
+                        <a
+                          href={(edu as any).link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-2 hover:underline"
+                        >
+                          {edu.degree}
+                          <ExternalLink className="w-4 h-4" />
+                        </a>
+                      ) : (
+                        edu.degree
+                      )}
                     </h3>
                     <p className="text-base font-medium text-white/70">
                       {edu.institution}
